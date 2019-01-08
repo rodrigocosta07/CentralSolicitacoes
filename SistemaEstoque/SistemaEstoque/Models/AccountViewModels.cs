@@ -64,6 +64,13 @@ namespace SistemaEstoque.Models
 
     public class RegisterViewModel
     {
+
+        [Required]
+        public string Nome { get; set; }
+
+        [Required]
+        public string Sobrenome { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
