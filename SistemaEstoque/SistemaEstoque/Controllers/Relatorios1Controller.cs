@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
@@ -10,24 +11,33 @@ using SistemaEstoque.Models;
 
 namespace SistemaEstoque.Controllers
 {
-    public class RelatoriosController : Controller
+    public class Relatorios1Controller : Controller
     {
         private EstoqueDbContext db = new EstoqueDbContext();
 
-        // GET: Relatorios
-        public ActionResult Index()
+        // GET: Relatorios1
+        public async Task<ActionResult> Index()
         {
-            return View(db.Relatorios.ToList());
+            return View(await db.Relatorios.ToListAsync());
         }
 
-        // GET: Relatorios/Details/5
-        public ActionResult Details(int? id)
+        public async Task<ActionResult> Pedido(string Pesquisa)
+        {
+            var pesq = Convert.ToInt64(Pesquisa);
+            
+            Produto produto =  db.Produtoes.Where(x => x.CodigoBarras.Equals(pesq)).FirstOrDefault();
+           
+            return PartialView(produto);
+        }
+
+        // GET: Relatorios1/Details/5
+        public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Relatorio relatorio = db.Relatorios.Find(id);
+            Relatorio relatorio = await db.Relatorios.FindAsync(id);
             if (relatorio == null)
             {
                 return HttpNotFound();
@@ -35,37 +45,37 @@ namespace SistemaEstoque.Controllers
             return View(relatorio);
         }
 
-        // GET: Relatorios/Create
+        // GET: Relatorios1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Relatorios/Create
+        // POST: Relatorios1/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RelatorioId,DataVenda,ValorLiquido,ValorBruto,Lucro")] Relatorio relatorio)
+        public async Task<ActionResult> Create([Bind(Include = "RelatorioId,DataVenda,ValorLiquido,ValorBruto,Lucro")] Relatorio relatorio)
         {
             if (ModelState.IsValid)
             {
                 db.Relatorios.Add(relatorio);
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
 
             return View(relatorio);
         }
 
-        // GET: Relatorios/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Relatorios1/Edit/5
+        public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Relatorio relatorio = db.Relatorios.Find(id);
+            Relatorio relatorio = await db.Relatorios.FindAsync(id);
             if (relatorio == null)
             {
                 return HttpNotFound();
@@ -73,30 +83,30 @@ namespace SistemaEstoque.Controllers
             return View(relatorio);
         }
 
-        // POST: Relatorios/Edit/5
+        // POST: Relatorios1/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RelatorioId,DataVenda,ValorLiquido,ValorBruto,Lucro")] Relatorio relatorio)
+        public async Task<ActionResult> Edit([Bind(Include = "RelatorioId,DataVenda,ValorLiquido,ValorBruto,Lucro")] Relatorio relatorio)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(relatorio).State = EntityState.Modified;
-                db.SaveChanges();
+                await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(relatorio);
         }
 
-        // GET: Relatorios/Delete/5
-        public ActionResult Delete(int? id)
+        // GET: Relatorios1/Delete/5
+        public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Relatorio relatorio = db.Relatorios.Find(id);
+            Relatorio relatorio = await db.Relatorios.FindAsync(id);
             if (relatorio == null)
             {
                 return HttpNotFound();
@@ -104,14 +114,14 @@ namespace SistemaEstoque.Controllers
             return View(relatorio);
         }
 
-        // POST: Relatorios/Delete/5
+        // POST: Relatorios1/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public async Task<ActionResult> DeleteConfirmed(int id)
         {
-            Relatorio relatorio = db.Relatorios.Find(id);
+            Relatorio relatorio = await db.Relatorios.FindAsync(id);
             db.Relatorios.Remove(relatorio);
-            db.SaveChanges();
+            await db.SaveChangesAsync();
             return RedirectToAction("Index");
         }
 
