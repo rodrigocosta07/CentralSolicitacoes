@@ -175,6 +175,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItensController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProdutoesController.cs" />
     <Compile Include="Controllers\Relatorios1Controller.cs" />
@@ -211,6 +212,7 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\Pedido.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -256,6 +258,9 @@
     <Content Include="Views\Relatorios1\Edit.cshtml" />
     <Content Include="Views\Relatorios1\Index.cshtml" />
     <Content Include="Views\Relatorios1\Pedido.cshtml" />
+    <Content Include="Views\Relatorios1\Caixa.cshtml" />
+    <Content Include="Views\Relatorios1\_ProdutosSelecionados.cshtml" />
+    <Content Include="Views\Itens\ListarItens.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

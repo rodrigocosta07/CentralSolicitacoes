@@ -21,13 +21,24 @@ namespace SistemaEstoque.Controllers
             return View(await db.Relatorios.ToListAsync());
         }
 
+        public async Task<ActionResult> Caixa(string Pesquisa)
+        {
+            var pesq = Convert.ToInt64(Pesquisa);
+
+            Produto produto = await db.Produtoes.Where(x => x.CodigoBarras.Equals(pesq)).FirstOrDefaultAsync();
+
+            var listaPedido = new List<Produto>();
+            
+            return View(produto);
+        }
+
         public async Task<ActionResult> Pedido(string Pesquisa)
         {
             var pesq = Convert.ToInt64(Pesquisa);
             
-            Produto produto =  db.Produtoes.Where(x => x.CodigoBarras.Equals(pesq)).FirstOrDefault();
+            Produto produto = await db.Produtoes.Where(x => x.CodigoBarras.Equals(pesq)).FirstOrDefaultAsync();
            
-            return PartialView(produto);
+            return PartialView("Pedido",produto);
         }
 
         // GET: Relatorios1/Details/5

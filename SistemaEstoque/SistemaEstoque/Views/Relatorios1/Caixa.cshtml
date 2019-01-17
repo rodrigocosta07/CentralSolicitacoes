@@ -1,0 +1,184 @@
+﻿@model SistemaEstoque.Models.Produto
+@{
+    var lista = new List<SistemaEstoque.Models.Produto>();
+}
+
+@{
+    ViewBag.Title = "Caixa";
+}
+
+<h2>Caixa</h2>
+
+<div>
+    Pesquisar:
+    @using (Html.BeginForm("Caixa", "Relatorios1", FormMethod.Get))
+    {
+        <div class="row">
+            <div class="col-sm-4">
+                @Html.TextBox("Pesquisa")
+                <input class="btn btn-dark" type="submit" value="Pesquisar" />
+            </div>
+        </div>
+    }
+</div>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+
+
+    <div class="form-horizontal">
+        <h4>Produto</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.NomeProduto, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.NomeProduto, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" , @NomeProduto="NomeProduto"} })
+                @Html.ValidationMessageFor(model => model.NomeProduto, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input type="hidden" class="Teste" value="teste" id="teste"/>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Marca, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Marca, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled",@Marca="Marca" } })
+                @Html.ValidationMessageFor(model => model.Marca, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control" ,@Quantidade="Quantidade"} })
+                @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorEntrada, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorEntrada, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.ValorEntrada, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.ValorVenda, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ValorVenda, new { htmlAttributes = new { @class = "form-control", @disabled = "disabled" } })
+                @Html.ValidationMessageFor(model => model.ValorVenda, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <input type="hidden" id="Quantidade" class="Quantidade" value="quantidade" />
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <a href="#" onclick="SalvarItens()">Gravar Itens</a>
+                <!--<input type="submit" value="Create" class="btn btn-default" />-->
+            </div>
+        </div>
+    </div>
+
+    <input type="hidden" id="idPedido" value="@ViewBag.Pedido" />
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<div id="divItens">
+    @{
+        Html.RenderAction("ListarItens", "Itens");
+    }
+</div>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.NomeProduto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Marca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodigoBarras)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorEntrada)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ValorVenda)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in lista)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.NomeProduto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CodigoBarras)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorEntrada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ValorVenda)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProdutoId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProdutoId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProdutoId })
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/Pedido.js"></script>
+
+
+    <script>
+        function Salvar() {
+           
+            
+            var quantidade = $("#Quantidade").val();
+            var produto = $("#NomeProduto").val();
+            var marca = $("#Marca").val();
+            debugger;
+            var url = "/Itens/SalvarItens";
+            debugger;
+            $.ajax({
+                
+                url: url
+                , type: "GET"
+                , datatype: "html"
+                , success: function (data) {
+                    debugger;
+                    if (data.Resultado > 0) {
+                        ListarItens(idPedido);
+                    }
+                }
+            }
+            );
+        }
+
+    </script>
+}
