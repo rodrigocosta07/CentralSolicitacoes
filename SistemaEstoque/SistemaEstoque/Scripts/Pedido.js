@@ -37,15 +37,15 @@ function Salvarpedido() {
     });
 }
 
-function ListarItens(idPedido) {
+function ListarItens(Resultado) {
     debugger;
     var url = "/Itens/ListarItens";
-
+    debugger
     $.ajax({
         url: url
         , type: "GET"
-        , data: { id: id }
-        , datatype: "JSON"
+        , data: { id: Resultado }
+        , datatype: "html"
         , success: function (data) {
             var divItens = $("#divItens");
             divItens.empty();
@@ -73,7 +73,7 @@ function SalvarItens() {
         , success: function (data) {
             if (data.Resultado > 0) {
                 debugger;
-                ListarItens(idPedido);
+                ListarItens(data.Resultado);
             }
         }
     }
