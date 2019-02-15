@@ -1,0 +1,26 @@
+﻿@model SistemaEstoque.Models.TipoEquipamento
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TipoEquipamento</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.NomeEquipamento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.NomeEquipamento)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TipoEquipamentoId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

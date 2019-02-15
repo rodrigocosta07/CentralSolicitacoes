@@ -39,7 +39,7 @@ function Salvarpedido() {
 
 function ListarItens(Resultado) {
     debugger;
-    var url = "/Itens/ListarItens";
+    var url = "/Relatorios1/ListarItens";
     debugger
     $.ajax({
         url: url
@@ -63,7 +63,7 @@ function SalvarItens() {
     var produto = $("#NomeProduto").val();
     var marca = $("#Marca").val();
 
-    var url = "/Itens/SalvarItens";
+    var url = "/Relatorios1/SalvarItens";
     debugger;
     $.ajax({
         url: url

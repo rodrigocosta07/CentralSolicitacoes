@@ -10,107 +10,107 @@ using SistemaEstoque.Models;
 
 namespace SistemaEstoque.Controllers
 {
-    public class ProdutoesController : Controller
+    public class TipoEquipamentosController : Controller
     {
         private EstoqueDbContext db = new EstoqueDbContext();
 
-        // GET: Produtoes
+        // GET: TipoEquipamentos
         public ActionResult Index()
         {
-            return View(db.Produtoes.ToList());
+            return View(db.TipoEquipamentos.ToList());
         }
 
-        // GET: Produtoes/Details/5
+        // GET: TipoEquipamentos/Details/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtoes.Find(id);
-            if (produto == null)
+            TipoEquipamento tipoEquipamento = db.TipoEquipamentos.Find(id);
+            if (tipoEquipamento == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+            return View(tipoEquipamento);
         }
 
-        // GET: Produtoes/Create
+        // GET: TipoEquipamentos/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Produtoes/Create
+        // POST: TipoEquipamentos/Create
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProdutoId,NomeProduto,Marca,CodigoBarras,Quantidade,ValorEntrada,ValorVenda")] Produto produto)
+        public ActionResult Create([Bind(Include = "TipoEquipamentoId,NomeEquipamento")] TipoEquipamento tipoEquipamento)
         {
             if (ModelState.IsValid)
             {
-                db.Produtoes.Add(produto);
+                db.TipoEquipamentos.Add(tipoEquipamento);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(produto);
+            return View(tipoEquipamento);
         }
 
-        // GET: Produtoes/Edit/5
+        // GET: TipoEquipamentos/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtoes.Find(id);
-            if (produto == null)
+            TipoEquipamento tipoEquipamento = db.TipoEquipamentos.Find(id);
+            if (tipoEquipamento == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+            return View(tipoEquipamento);
         }
 
-        // POST: Produtoes/Edit/5
+        // POST: TipoEquipamentos/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProdutoId,NomeProduto,Marca,CodigoBarras,Quantidade,ValorEntrada,ValorVenda")] Produto produto)
+        public ActionResult Edit([Bind(Include = "TipoEquipamentoId,NomeEquipamento")] TipoEquipamento tipoEquipamento)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(produto).State = EntityState.Modified;
+                db.Entry(tipoEquipamento).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(produto);
+            return View(tipoEquipamento);
         }
 
-        // GET: Produtoes/Delete/5
+        // GET: TipoEquipamentos/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Produto produto = db.Produtoes.Find(id);
-            if (produto == null)
+            TipoEquipamento tipoEquipamento = db.TipoEquipamentos.Find(id);
+            if (tipoEquipamento == null)
             {
                 return HttpNotFound();
             }
-            return View(produto);
+            return View(tipoEquipamento);
         }
 
-        // POST: Produtoes/Delete/5
+        // POST: TipoEquipamentos/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Produto produto = db.Produtoes.Find(id);
-            db.Produtoes.Remove(produto);
+            TipoEquipamento tipoEquipamento = db.TipoEquipamentos.Find(id);
+            db.TipoEquipamentos.Remove(tipoEquipamento);
             db.SaveChanges();
             return RedirectToAction("Index");
         }

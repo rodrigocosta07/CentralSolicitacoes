@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -14,8 +15,8 @@ namespace SistemaEstoque.Models
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
 
-        public virtual ICollection<Produto> Produto { get; set; }
-        public virtual ICollection<Relatorio> Relatorio { get; set; }
+        public virtual Setor Setor { get; set; }
+        public ICollection<Solicitacao> Solicitacoes { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -38,8 +39,20 @@ namespace SistemaEstoque.Models
             return new EstoqueDbContext();
         }
 
-        public System.Data.Entity.DbSet<SistemaEstoque.Models.Relatorio> Relatorios { get; set; }
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();
+            modelBuilder.Conventions.Remove<ManyToManyCascadeDeleteConvention>();
 
-        public System.Data.Entity.DbSet<SistemaEstoque.Models.Produto> Produtoes { get; set; }
+        }
+
+        public DbSet<Equipamento> Equipamentos { get; set; }
+        public DbSet<Setor> Setores { get; set; }
+        public DbSet<TipoEquipamento> TipoEquipamentos { get; set; }
+        public DbSet<Solicitacao> Solicitacoes { get; set; }
+
+      
     }
 }
