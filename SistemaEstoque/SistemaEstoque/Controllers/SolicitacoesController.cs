@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using SistemaEstoque.Models;
+using SistemaEstoque.Models.ViewModels;
 
 namespace SistemaEstoque.Controllers
 {
@@ -39,6 +40,7 @@ namespace SistemaEstoque.Controllers
         // GET: Solicitacoes/Create
         public ActionResult Create()
         {
+            ViewData["Setor"] = new SelectList(db.Setores.ToList(), "SetorId", "Nome");
             return View();
         }
 
@@ -47,10 +49,20 @@ namespace SistemaEstoque.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create([Bind(Include = "SolicitacaoId,Equipamento,DataSolicitacao,Quantidade,Status")] Solicitacao solicitacao)
+        public async Task<ActionResult> Create([Bind(Include = "SolicitacaoId,Equipamento,DataSolicitacao,Quantidade,Status")] SolicitacaoViewModel solicitacaoViewModel, int Setor)
         {
+
+            var solicitacao = new Solicitacao
+            {
+                Equipamento = solicitacaoViewModel.Equipamento,
+                Quantidade = solicitacaoViewModel.Quantidade,
+                
+            };
+
             if (ModelState.IsValid)
             {
+                solicitacao.Status = Solicitacao.Estado.Aguardando;
+                solicitacao.DataSolicitacao = DateTime.Now;
                 db.Solicitacoes.Add(solicitacao);
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
@@ -58,6 +70,22 @@ namespace SistemaEstoque.Controllers
 
             return View(solicitacao);
         }
+
+
+        public ActionResult GetSearchValue(string term)
+        {
+            return Json(db.Equipamentos.Where(c => c.NomeEquipamento.StartsWith(term)).Select(a => new { label = a.NomeEquipamento }), JsonRequestBehavior.AllowGet);
+        }
+        /*
+        public JsonResult GetSearchValue(string search)
+        {
+            List<Equipamento> allsearch = db.Equipamentos.Where(x => x.NomeEquipamento.Contains(search)).Select(x => new Equipamento
+            {
+               EquipamentoId = x.EquipamentoId,
+                NomeEquipamento = x.NomeEquipamento
+            }).ToList();
+            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }*/
 
         // GET: Solicitacoes/Edit/5
         public async Task<ActionResult> Edit(int? id)

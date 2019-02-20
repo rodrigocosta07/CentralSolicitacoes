@@ -1,4 +1,4 @@
-﻿@model SistemaEstoque.Models.Solicitacao
+﻿@model SistemaEstoque.Models.ViewModels.SolicitacaoViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,10 +7,10 @@
 <h2>Create</h2>
 
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+
     <div class="form-horizontal">
         <h4>Solicitacao</h4>
         <hr />
@@ -18,18 +18,12 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Equipamento, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Equipamento, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.EditorFor(model => model.Equipamento, new { htmlAttributes = new { @class = "form-control", @id = "NomeEquipamento" } })
                 @Html.ValidationMessageFor(model => model.Equipamento, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.DataSolicitacao, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.DataSolicitacao, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.DataSolicitacao, "", new { @class = "text-danger" })
-            </div>
-        </div>
+
 
         <div class="form-group">
             @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -39,14 +33,16 @@
             </div>
         </div>
 
+
+
         <div class="form-group">
-            @Html.LabelFor(model => model.Status, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Setor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EnumDropDownListFor(model => model.Status, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.Status, "", new { @class = "text-danger" })
+                @Html.DropDownListFor(model => model.Setor, null)
+                @Html.ValidationMessageFor(model => model.Setor, "", new { @class = "text-danger" })
             </div>
         </div>
-
+       
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Create" class="btn btn-default" />
@@ -61,4 +57,34 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+
+    <script src="~/Scripts/jquery-ui-1.12.1.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#NomeEquipamento').autocomplete({
+                source: '/Solicitacoes/GetSearchValue'
+            });
+        });
+    </script>
+
+    <script>
+    $("#NomeEquipamento").autocomplete({
+        source: function (request, response) {
+            $.ajax({
+                url: '@Url.Action("GetSearchValue", "Solicitacoes")',
+                dataType: "json",
+                data: { search: $("#NomeEquipamento").val() },
+                success: function (data) {
+                    response($.map(data, function (item) {
+                        return { label: item.NomeEquipamento, value: item.NomeEquipamento };
+                    }));
+                },
+                error: function (xhr, status, error) {
+                    alert("Error");
+                }
+            });
+        }
+    });
+    </script>
 }
