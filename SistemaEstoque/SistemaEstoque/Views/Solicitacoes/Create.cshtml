@@ -68,23 +68,5 @@
         });
     </script>
 
-    <script>
-    $("#NomeEquipamento").autocomplete({
-        source: function (request, response) {
-            $.ajax({
-                url: '@Url.Action("GetSearchValue", "Solicitacoes")',
-                dataType: "json",
-                data: { search: $("#NomeEquipamento").val() },
-                success: function (data) {
-                    response($.map(data, function (item) {
-                        return { label: item.NomeEquipamento, value: item.NomeEquipamento };
-                    }));
-                },
-                error: function (xhr, status, error) {
-                    alert("Error");
-                }
-            });
-        }
-    });
-    </script>
+   
 }

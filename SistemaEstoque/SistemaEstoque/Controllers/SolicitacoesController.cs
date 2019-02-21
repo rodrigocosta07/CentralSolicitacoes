@@ -61,6 +61,9 @@ namespace SistemaEstoque.Controllers
 
             if (ModelState.IsValid)
             {
+                Setor setor = db.Setores.Find(Setor);
+
+                solicitacao.Setor = setor;
                 solicitacao.Status = Solicitacao.Estado.Aguardando;
                 solicitacao.DataSolicitacao = DateTime.Now;
                 db.Solicitacoes.Add(solicitacao);
@@ -76,29 +79,21 @@ namespace SistemaEstoque.Controllers
         {
             return Json(db.Equipamentos.Where(c => c.NomeEquipamento.StartsWith(term)).Select(a => new { label = a.NomeEquipamento }), JsonRequestBehavior.AllowGet);
         }
-        /*
-        public JsonResult GetSearchValue(string search)
-        {
-            List<Equipamento> allsearch = db.Equipamentos.Where(x => x.NomeEquipamento.Contains(search)).Select(x => new Equipamento
-            {
-               EquipamentoId = x.EquipamentoId,
-                NomeEquipamento = x.NomeEquipamento
-            }).ToList();
-            return new JsonResult { Data = allsearch, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }*/
 
         // GET: Solicitacoes/Edit/5
-        public async Task<ActionResult> Edit(int? id)
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Solicitacao solicitacao = await db.Solicitacoes.FindAsync(id);
+            Solicitacao solicitacao =  db.Solicitacoes.Find(id);
             if (solicitacao == null)
             {
                 return HttpNotFound();
             }
+            ViewData["Setor"] = new SelectList(db.Setores.ToList(), "SetorId", "Nome");
+            ViewBag.setorid = solicitacao.Setor;
             return View(solicitacao);
         }
 
@@ -107,17 +102,74 @@ namespace SistemaEstoque.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Edit([Bind(Include = "SolicitacaoId,Equipamento,DataSolicitacao,Quantidade,Status")] Solicitacao solicitacao)
+        public ActionResult Edit(Solicitacao solicitacao)
         {
+
+
             if (ModelState.IsValid)
             {
+                var idEquipamento = db.Equipamentos.Where(a => a.NomeEquipamento.Equals(solicitacao.Equipamento)).FirstOrDefault();
+                idEquipamento = db.Equipamentos.Find(idEquipamento.EquipamentoId);
+                Setor setor = db.Setores.Find(solicitacao.Setor.SetorId);
+                idEquipamento.Quantidade -= solicitacao.Quantidade;
+                idEquipamento.Setor = setor;
+                solicitacao.Setor = setor;
+                //solicitacao = await db.Solicitacoes.FindAsync(solicitacao.Setor.SetorId);
+                //equipamento.Setor = solicitacao.Setor;
+
+                db.Entry(idEquipamento).State = EntityState.Modified;
+                db.SaveChanges();
+                db.Entry(solicitacao).State = EntityState.Modified;
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            return View(solicitacao);
+        }
+        /*
+        public async Task<ActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Solicitacao solicitacao = await db.Solicitacoes.FindAsync(id);
+
+            if (solicitacao == null)
+            {
+                return HttpNotFound();
+            }
+            ViewBag.setorid = solicitacao.Setor;
+            return View(solicitacao);
+        }
+
+
+        // POST: Solicitacoes/Edit/5
+        // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
+        // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Edit([Bind(Include = "SolicitacaoId,Equipamento,DataSolicitacao,Quantidade,Status")] Solicitacao solicitacao)
+        {
+
+           
+            if (ModelState.IsValid)
+            {
+                var idEquipamento = db.Equipamentos.Where(a => a.NomeEquipamento.Equals(solicitacao.Equipamento)).FirstOrDefault();
+                var teste = ViewBag.setorid;
+                idEquipamento = db.Equipamentos.Find(idEquipamento.EquipamentoId);
+
+                idEquipamento.Quantidade -= solicitacao.Quantidade;
+                //solicitacao = await db.Solicitacoes.FindAsync(solicitacao.Setor.SetorId);
+                //equipamento.Setor = solicitacao.Setor;
+
+                db.Entry(idEquipamento).State = EntityState.Modified;
                 db.Entry(solicitacao).State = EntityState.Modified;
                 await db.SaveChangesAsync();
                 return RedirectToAction("Index");
             }
             return View(solicitacao);
         }
-
+        */
         // GET: Solicitacoes/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
