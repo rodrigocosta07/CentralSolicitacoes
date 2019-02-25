@@ -37,6 +37,45 @@ namespace SistemaEstoque.Controllers
             return View(solicitacao);
         }
 
+        public ActionResult Aprovar(int? id)
+        {
+
+            var solicitacao = db.Solicitacoes.Find(id);
+
+            MovimentacoesConcluidas movimentacao = new MovimentacoesConcluidas();
+            var Equipamento = db.Equipamentos.Where(a => a.NomeEquipamento.Equals(solicitacao.Equipamento)).FirstOrDefault();
+            Equipamento = db.Equipamentos.Find(Equipamento.EquipamentoId);
+            var idequipamento = Equipamento.EquipamentoId;
+            var setorid = solicitacao.Setor.SetorId;
+
+           
+
+            if(solicitacao.Quantidade > Equipamento.Quantidade)
+            {
+                ViewBag.ErroQuantidade = "Não há Equipamento disponiveis para quantidade solicitada";
+                return RedirectToAction("Index");
+            }
+            movimentacao.idSetor = setorid;
+            movimentacao.idEquipamento = idequipamento;
+            movimentacao.Quantidade = solicitacao.Quantidade;
+
+            db.Movimentacoes.Add(movimentacao);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Solicitacoes");
+
+        }
+
+        public ActionResult NegarSolicitacao(int? id)
+        {
+            var solicitacao = db.Solicitacoes.Find(id);
+            solicitacao.Status = Solicitacao.Estado.Negada;
+
+            db.Entry(solicitacao).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index", "Solicitacoes");
+        }
+
+
         // GET: Solicitacoes/Create
         public ActionResult Create()
         {
@@ -91,12 +130,11 @@ namespace SistemaEstoque.Controllers
             if (solicitacao == null)
             {
                 return HttpNotFound();
-            }
-            ViewData["Setor"] = new SelectList(db.Setores.ToList(), "SetorId", "Nome");
-            ViewBag.setorid = solicitacao.Setor;
+            }      
             return View(solicitacao);
         }
 
+     
         // POST: Solicitacoes/Edit/5
         // Para se proteger de mais ataques, ative as propriedades específicas a que você quer se conectar. Para 
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
@@ -108,15 +146,23 @@ namespace SistemaEstoque.Controllers
 
             if (ModelState.IsValid)
             {
+                //pega o nome equipamento
                 var idEquipamento = db.Equipamentos.Where(a => a.NomeEquipamento.Equals(solicitacao.Equipamento)).FirstOrDefault();
+
+                //pega o id do equipamento
                 idEquipamento = db.Equipamentos.Find(idEquipamento.EquipamentoId);
+
+
                 Setor setor = db.Setores.Find(solicitacao.Setor.SetorId);
                 idEquipamento.Quantidade -= solicitacao.Quantidade;
-                idEquipamento.Setor = setor;
+
+                
+               // setor.Equipamentos = setor;
+                //idEquipamento.Setor = setor;
                 solicitacao.Setor = setor;
                 //solicitacao = await db.Solicitacoes.FindAsync(solicitacao.Setor.SetorId);
                 //equipamento.Setor = solicitacao.Setor;
-
+                
                 db.Entry(idEquipamento).State = EntityState.Modified;
                 db.SaveChanges();
                 db.Entry(solicitacao).State = EntityState.Modified;

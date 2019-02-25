@@ -171,6 +171,7 @@
     <Compile Include="Controllers\EquipamentosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\MovimentacoesConcluidasController.cs" />
     <Compile Include="Controllers\SetoresController.cs" />
     <Compile Include="Controllers\SolicitacoesController.cs" />
     <Compile Include="Controllers\TipoEquipamentosController.cs" />
@@ -185,11 +186,28 @@
     <Compile Include="Migrations\201902151240133_NovoProjeto.Designer.cs">
       <DependentUpon>201902151240133_NovoProjeto.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201902220150352_alterartabela.cs" />
+    <Compile Include="Migrations\201902220150352_alterartabela.Designer.cs">
+      <DependentUpon>201902220150352_alterartabela.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902220200461_alterartabela2.cs" />
+    <Compile Include="Migrations\201902220200461_alterartabela2.Designer.cs">
+      <DependentUpon>201902220200461_alterartabela2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902220305327_alterartabela3.cs" />
+    <Compile Include="Migrations\201902220305327_alterartabela3.Designer.cs">
+      <DependentUpon>201902220305327_alterartabela3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201902251304111_AlteracaoTabelaMovimenacoes.cs" />
+    <Compile Include="Migrations\201902251304111_AlteracaoTabelaMovimenacoes.Designer.cs">
+      <DependentUpon>201902251304111_AlteracaoTabelaMovimenacoes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Equipamento.cs" />
+    <Compile Include="Models\MovimentacoesConcluidas.cs" />
     <Compile Include="Models\Setor.cs" />
     <Compile Include="Models\Solicitacao.cs" />
     <Compile Include="Models\TipoEquipamento.cs" />
@@ -337,6 +355,12 @@
     <Content Include="Views\Solicitacoes\Details.cshtml" />
     <Content Include="Views\Solicitacoes\Edit.cshtml" />
     <Content Include="Views\Solicitacoes\Index.cshtml" />
+    <Content Include="Views\MovimentacoesConcluidas\Create.cshtml" />
+    <Content Include="Views\MovimentacoesConcluidas\Delete.cshtml" />
+    <Content Include="Views\MovimentacoesConcluidas\Details.cshtml" />
+    <Content Include="Views\MovimentacoesConcluidas\Edit.cshtml" />
+    <Content Include="Views\MovimentacoesConcluidas\Index.cshtml" />
+    <Content Include="Views\MovimentacoesConcluidas\Salvar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -360,6 +384,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201902151240133_NovoProjeto.resx">
       <DependentUpon>201902151240133_NovoProjeto.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902220150352_alterartabela.resx">
+      <DependentUpon>201902220150352_alterartabela.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902220200461_alterartabela2.resx">
+      <DependentUpon>201902220200461_alterartabela2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902220305327_alterartabela3.resx">
+      <DependentUpon>201902220305327_alterartabela3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201902251304111_AlteracaoTabelaMovimenacoes.resx">
+      <DependentUpon>201902251304111_AlteracaoTabelaMovimenacoes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

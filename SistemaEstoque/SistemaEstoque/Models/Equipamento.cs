@@ -10,13 +10,13 @@ namespace SistemaEstoque.Models
         public int EquipamentoId { get; set; }
         public string NomeEquipamento { get; set; }
         public string Marca { get; set; }
-        public long NumeroSerie { get; set; }
+       
         public double Quantidade { get; set; }
 
      
 
         public virtual TipoEquipamento TipoEquipamento { get; set; }
 
-        public virtual Setor Setor { get; set; }
+        public virtual ICollection<Setor> Setor { get; set; }
     }
 }

@@ -52,7 +52,8 @@ namespace SistemaEstoque.Models
         public DbSet<Setor> Setores { get; set; }
         public DbSet<TipoEquipamento> TipoEquipamentos { get; set; }
         public DbSet<Solicitacao> Solicitacoes { get; set; }
+        public DbSet<MovimentacoesConcluidas> Movimentacoes { get; set; }
 
-      
+
     }
 }

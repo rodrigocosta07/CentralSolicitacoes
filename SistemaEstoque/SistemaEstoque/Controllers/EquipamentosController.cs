@@ -88,6 +88,8 @@ namespace SistemaEstoque.Controllers
         {
             if (ModelState.IsValid)
             {
+
+                
                 db.Entry(equipamento).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

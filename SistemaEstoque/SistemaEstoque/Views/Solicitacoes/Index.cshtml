@@ -29,30 +29,58 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Equipamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataSolicitacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Setor.Nome)
-        </td>
-        <td>
-           
-            @Html.ActionLink("Edit", "Edit", new { id = item.SolicitacaoId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.SolicitacaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.SolicitacaoId })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Equipamento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DataSolicitacao)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantidade)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Setor.Nome)
+            </td>
+            <td>
+
+
+                <a href="/Solicitacoes/Aprovar/@item.SolicitacaoId">Aprovar</a>
+                <a href="/Solicitacoes/NegarSolicitacao/@item.SolicitacaoId">Negar</a>
+                @Html.ActionLink("Edit", "Edit", new { id = item.SolicitacaoId }) |
+                @Html.ActionLink("Details", "Details", new { id = item.SolicitacaoId }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.SolicitacaoId })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section scripts{
+<script type="text/javascript">
+        $(".btnSalvar").click(function () {
+            alert("teste");
+            var id = $(this).data("value");
+             $.ajax({
+                   type: "POST",
+                   url: '@Url.Action("Salvar" , "MovimentacoesConcluidas")',
+                   data: { id: id },
+                   success: function (result) {
+                       console.log(result);
+                   },
+                   error: function (result) {
+
+                   }
+                });
+        }); 
+</script>   
+    
+
+}
+
+
