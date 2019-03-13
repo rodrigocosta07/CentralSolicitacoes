@@ -1,4 +1,6 @@
 ﻿@model SistemaEstoque.Models.RegisterViewModel
+
+@using SistemaEstoque.Models;
 @{
     ViewBag.Title = "Registre-se";
 }
@@ -45,6 +47,14 @@
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
         </div>
     </div>
+
+    @Html.DropDownListFor(m => m.SetorId, ((IEnumerable<Setor>)ViewBag.Setores).Select(option => new SelectListItem
+    {
+     Text = option.Nome,
+     Value = option.SetorId.ToString(),
+     Selected = (Model != null) && (Model.SetorId == option.SetorId)
+     }), "Selecione um Setor...", new { @class = "form-control" })
+
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Registrar-se" />

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Data.Entity.ModelConfiguration.Conventions;
 using System.Security.Claims;
@@ -15,7 +16,9 @@ namespace SistemaEstoque.Models
         public string Nome { get; set; }
         public string Sobrenome { get; set; }
 
-        public virtual Setor Setor { get; set; }
+       
+        public int SetorId { get; set; }
+        
         public ICollection<Solicitacao> Solicitacoes { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
@@ -41,6 +44,7 @@ namespace SistemaEstoque.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            Database.SetInitializer<EstoqueDbContext>(null);
             base.OnModelCreating(modelBuilder);
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
             modelBuilder.Conventions.Remove<OneToManyCascadeDeleteConvention>();

@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using SistemaEstoque.Models;
 using SistemaEstoque.Models.ViewModels;
+using Microsoft.AspNet.Identity;
 
 namespace SistemaEstoque.Controllers
 {
@@ -19,6 +20,10 @@ namespace SistemaEstoque.Controllers
         // GET: Solicitacoes
         public async Task<ActionResult> Index()
         {
+            var user = User.Identity.GetUserId();
+            var DadosUsuario = db.Users.Find(user);
+
+            ViewBag.quantidade = TempData["teste"];
             return View(await db.Solicitacoes.ToListAsync());
         }
 
@@ -52,13 +57,23 @@ namespace SistemaEstoque.Controllers
 
             if(solicitacao.Quantidade > Equipamento.Quantidade)
             {
-                ViewBag.ErroQuantidade = "Não há Equipamento disponiveis para quantidade solicitada";
+                ViewBag.ErroQuantidade = "Não há Equipamentos disponiveis para quantidade solicitada";
+                
+                TempData["teste"] = "Não há Equipamentos disponiveis para quantidade solicitada";
                 return RedirectToAction("Index");
             }
             movimentacao.idSetor = setorid;
             movimentacao.idEquipamento = idequipamento;
             movimentacao.Quantidade = solicitacao.Quantidade;
 
+            solicitacao.Status = Solicitacao.Estado.Aprovada;
+
+            Equipamento.Quantidade -= solicitacao.Quantidade;
+
+            db.Entry(Equipamento).State = EntityState.Modified;
+            db.SaveChanges();
+            db.Entry(solicitacao).State = EntityState.Modified;
+            db.SaveChanges();
             db.Movimentacoes.Add(movimentacao);
             db.SaveChanges();
             return RedirectToAction("Index", "Solicitacoes");

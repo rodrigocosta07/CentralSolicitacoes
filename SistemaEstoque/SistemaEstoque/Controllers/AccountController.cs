@@ -15,6 +15,8 @@ namespace SistemaEstoque.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private EstoqueDbContext db = new EstoqueDbContext();
+
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -139,6 +141,9 @@ namespace SistemaEstoque.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            
+
+            ViewBag.Setores = db.Setores.ToList();
             return View();
         }
 
@@ -149,11 +154,21 @@ namespace SistemaEstoque.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
+
+            Setor setor = db.Setores.Find(model.SetorId);
             if (ModelState.IsValid)
-            {   
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                user.Nome = model.Nome;
-                user.Sobrenome = model.Sobrenome;
+            {
+                
+                var user = new ApplicationUser {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Nome = model.Nome,
+                    Sobrenome = model.Sobrenome,
+                    SetorId = model.SetorId
+                   
+                };
+                
+                
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -169,7 +184,7 @@ namespace SistemaEstoque.Controllers
                 }
                 AddErrors(result);
             }
-
+            
             // Se chegamos até aqui e houver alguma falha, exiba novamente o formulário
             return View(model);
         }
