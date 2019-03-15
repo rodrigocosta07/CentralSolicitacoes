@@ -88,7 +88,7 @@ namespace SistemaEstoque.Models
         public string ConfirmPassword { get; set; }
 
         public int SetorId { get; set; }
-        
+        public string Perfil { get; set; }
     }
 
     public class ResetPasswordViewModel

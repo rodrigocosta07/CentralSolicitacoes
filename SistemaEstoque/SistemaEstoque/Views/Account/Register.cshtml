@@ -2,7 +2,9 @@
 
 @using SistemaEstoque.Models;
 @{
-    ViewBag.Title = "Registre-se";
+                /**/
+
+                ViewBag.Title = "Registre-se";
 }
 
 <h2>@ViewBag.Title.</h2>
@@ -54,6 +56,13 @@
      Value = option.SetorId.ToString(),
      Selected = (Model != null) && (Model.SetorId == option.SetorId)
      }), "Selecione um Setor...", new { @class = "form-control" })
+
+    <div class="form-group">
+        @Html.Label("Selecione o Tipo de Perfil do Usuário", new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DropDownList("Perfil")
+        </div>
+    </div>
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">

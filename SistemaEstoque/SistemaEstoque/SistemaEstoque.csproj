@@ -172,6 +172,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MovimentacoesConcluidasController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SetoresController.cs" />
     <Compile Include="Controllers\SolicitacoesController.cs" />
     <Compile Include="Controllers\TipoEquipamentosController.cs" />
@@ -365,6 +366,8 @@
     <Content Include="Views\MovimentacoesConcluidas\Edit.cshtml" />
     <Content Include="Views\MovimentacoesConcluidas\Index.cshtml" />
     <Content Include="Views\MovimentacoesConcluidas\Salvar.cshtml" />
+    <Content Include="Views\Role\Index.cshtml" />
+    <Content Include="Views\Role\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -22,6 +22,7 @@ namespace SistemaEstoque.Controllers
 
         public AccountController()
         {
+            db = new EstoqueDbContext();
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
@@ -141,7 +142,9 @@ namespace SistemaEstoque.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            
+
+            ViewBag.Perfil = new SelectList(db.Roles.ToList(), "Name", "Name");
+
 
             ViewBag.Setores = db.Setores.ToList();
             return View();
@@ -172,6 +175,7 @@ namespace SistemaEstoque.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    await this.UserManager.AddToRoleAsync(user.Id, model.Perfil  );
                     await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // Para obter mais informações sobre como habilitar a confirmação da conta e redefinição de senha, visite https://go.microsoft.com/fwlink/?LinkID=320771
