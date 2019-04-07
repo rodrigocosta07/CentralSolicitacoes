@@ -27,6 +27,26 @@ namespace SistemaEstoque.Controllers
             return View(await db.Solicitacoes.ToListAsync());
         }
 
+        [Authorize(Roles ="Usuario , Admin")]
+        public async Task<ActionResult> SolicitacoesSetor()
+        {
+
+            var user = User.Identity.GetUserId();
+            var usuario = db.Users.Find(user);
+            var Solicitacoes = await db.Solicitacoes.Where(x => x.Setor.SetorId.Equals(usuario.SetorId)).ToListAsync();
+            return View(Solicitacoes);
+        }
+
+        public async Task<ActionResult> EquipamentosSetor()
+        {
+
+            var user = User.Identity.GetUserId();
+            var usuario = db.Users.Find(user);
+            var Equipamentos = await db.Movimentacoes.Where(x => x.idSetor.Equals(usuario.SetorId)).ToListAsync();
+            
+            return View(Equipamentos);
+        }
+
         // GET: Solicitacoes/Details/5
         public async Task<ActionResult> Details(int? id)
         {
@@ -63,7 +83,9 @@ namespace SistemaEstoque.Controllers
                 return RedirectToAction("Index");
             }
             movimentacao.idSetor = setorid;
+            movimentacao.NomeSetor = solicitacao.Setor.Nome;
             movimentacao.idEquipamento = idequipamento;
+            movimentacao.NomeEquipamento = Equipamento.NomeEquipamento;
             movimentacao.Quantidade = solicitacao.Quantidade;
 
             solicitacao.Status = Solicitacao.Estado.Aprovada;

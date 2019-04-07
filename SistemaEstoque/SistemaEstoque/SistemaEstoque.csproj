@@ -179,33 +179,9 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201901081351166_InitialCreate.cs" />
-    <Compile Include="Migrations\201901081351166_InitialCreate.Designer.cs">
-      <DependentUpon>201901081351166_InitialCreate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902151240133_NovoProjeto.cs" />
-    <Compile Include="Migrations\201902151240133_NovoProjeto.Designer.cs">
-      <DependentUpon>201902151240133_NovoProjeto.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902220150352_alterartabela.cs" />
-    <Compile Include="Migrations\201902220150352_alterartabela.Designer.cs">
-      <DependentUpon>201902220150352_alterartabela.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902220200461_alterartabela2.cs" />
-    <Compile Include="Migrations\201902220200461_alterartabela2.Designer.cs">
-      <DependentUpon>201902220200461_alterartabela2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902220305327_alterartabela3.cs" />
-    <Compile Include="Migrations\201902220305327_alterartabela3.Designer.cs">
-      <DependentUpon>201902220305327_alterartabela3.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201902251304111_AlteracaoTabelaMovimenacoes.cs" />
-    <Compile Include="Migrations\201902251304111_AlteracaoTabelaMovimenacoes.Designer.cs">
-      <DependentUpon>201902251304111_AlteracaoTabelaMovimenacoes.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201903131232125_altertabelauser.cs" />
-    <Compile Include="Migrations\201903131232125_altertabelauser.Designer.cs">
-      <DependentUpon>201903131232125_altertabelauser.cs</DependentUpon>
+    <Compile Include="Migrations\201904060349001_NovasAlteracoes.cs" />
+    <Compile Include="Migrations\201904060349001_NovasAlteracoes.Designer.cs">
+      <DependentUpon>201904060349001_NovasAlteracoes.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -333,7 +309,6 @@
     <Content Include="Views\Relatorios1\Pedido.cshtml" />
     <Content Include="Views\Relatorios1\Caixa.cshtml" />
     <Content Include="Views\Relatorios1\_ProdutosSelecionados.cshtml" />
-    <Content Include="Views\Itens\ListarItens.cshtml" />
     <Content Include="Views\Relatorios1\ListarItens.cshtml" />
     <Content Include="Views\Movimentacao\Create.cshtml" />
     <Content Include="Views\Movimentacao\Delete.cshtml" />
@@ -368,6 +343,8 @@
     <Content Include="Views\MovimentacoesConcluidas\Salvar.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
+    <Content Include="Views\Solicitacoes\SolicitacoesSetor.cshtml" />
+    <Content Include="Views\Solicitacoes\EquipamentosSetor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -386,26 +363,8 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201901081351166_InitialCreate.resx">
-      <DependentUpon>201901081351166_InitialCreate.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902151240133_NovoProjeto.resx">
-      <DependentUpon>201902151240133_NovoProjeto.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902220150352_alterartabela.resx">
-      <DependentUpon>201902220150352_alterartabela.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902220200461_alterartabela2.resx">
-      <DependentUpon>201902220200461_alterartabela2.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902220305327_alterartabela3.resx">
-      <DependentUpon>201902220305327_alterartabela3.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201902251304111_AlteracaoTabelaMovimenacoes.resx">
-      <DependentUpon>201902251304111_AlteracaoTabelaMovimenacoes.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201903131232125_altertabelauser.resx">
-      <DependentUpon>201903131232125_altertabelauser.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904060349001_NovasAlteracoes.resx">
+      <DependentUpon>201904060349001_NovasAlteracoes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

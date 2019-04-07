@@ -10,7 +10,6 @@ namespace SistemaEstoque.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "SistemaEstoque.Models.EstoqueDbContext";
         }
 
         protected override void Seed(SistemaEstoque.Models.EstoqueDbContext context)

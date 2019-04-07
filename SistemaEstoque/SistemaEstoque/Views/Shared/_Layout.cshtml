@@ -22,10 +22,33 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Início", "Index", "Home")</li>
-                    <li>@Html.ActionLink("Sobre", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contato", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Criar Perfil", "Index", "Role")</li>
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("AdminBens") || User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Solicitacoes", "Index", "Solicitacoes")</li>
+                            <li>@Html.ActionLink("Equipamentos", "Index", "Equipamentos")</li>
+                        }
+                    }
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Usuario") || User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Solicitacoes do setor", "SolicitacoesSetor", "Solicitacoes")</li>
+                            <li>@Html.ActionLink("Equipamentos do Setor", "EquipamentosSetor", "Solicitacoes")</li>
+                        }
+                    }
+
+                    @if (Request.IsAuthenticated)
+                    {
+                        if (User.IsInRole("Admin"))
+                        {
+                            <li>@Html.ActionLink("Criar Perfil", "Index", "Role")</li>
+                            <li>@Html.ActionLink("Criar Usuario", "Register", "Account")</li>
+                        }
+                    }
+
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>

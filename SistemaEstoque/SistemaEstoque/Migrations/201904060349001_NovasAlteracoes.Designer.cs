@@ -7,13 +7,13 @@ namespace SistemaEstoque.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class alterartabela2 : IMigrationMetadata
+    public sealed partial class NovasAlteracoes : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(alterartabela2));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(NovasAlteracoes));
         
         string IMigrationMetadata.Id
         {
-            get { return "201902220200461_alterartabela2"; }
+            get { return "201904060349001_NovasAlteracoes"; }
         }
         
         string IMigrationMetadata.Source

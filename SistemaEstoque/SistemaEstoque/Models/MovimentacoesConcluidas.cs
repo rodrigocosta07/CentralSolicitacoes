@@ -11,7 +11,9 @@ namespace SistemaEstoque.Models
         [Key]
         public int Movimentacaoid { get; set; }
 
+        public string NomeEquipamento { get; set; }
         public int idEquipamento { get; set; }
+        public string NomeSetor { get; set; }
         public int idSetor { get; set; }
         public double Quantidade { get; set; }
     }
