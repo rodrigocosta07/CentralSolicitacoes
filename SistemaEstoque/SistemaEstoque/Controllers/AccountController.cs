@@ -82,14 +82,10 @@ namespace SistemaEstoque.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    if (User.IsInRole("Usuario"))
-                    {
-                        RedirectToAction("SolicitacoesSetor", "Solicitacoes");
-                    }else if (User.IsInRole("Admin"))
-                    {
-                        RedirectToAction("Index", "Home");
-                    }
-                    return RedirectToAction("Index", "Solicitacoes");
+                   
+                    
+                    
+                    return RedirectToAction("Index", "Home");
 
                 case SignInStatus.LockedOut:
                     return View("Lockout");
