@@ -18,13 +18,13 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Nome do aplicativo", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("Central Solicitações", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if (Request.IsAuthenticated)
                     {
-                        if (User.IsInRole("AdminBens") || User.IsInRole("Admin"))
+                        if (User.IsInRole("AdminBens"))
                         {
                             <li>@Html.ActionLink("Solicitacoes", "Index", "Solicitacoes")</li>
                             <li>@Html.ActionLink("Equipamentos", "Index", "Equipamentos")</li>
@@ -33,7 +33,7 @@
 
                     @if (Request.IsAuthenticated)
                     {
-                        if (User.IsInRole("Usuario") || User.IsInRole("Admin"))
+                        if (User.IsInRole("Usuario"))
                         {
                             <li>@Html.ActionLink("Solicitacoes do setor", "SolicitacoesSetor", "Solicitacoes")</li>
                             <li>@Html.ActionLink("Equipamentos do Setor", "EquipamentosSetor", "Solicitacoes")</li>
@@ -58,7 +58,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Meu Aplicativo ASP.NET</p>
+            <p>Central de Solicitações - @DateTime.Now.Year &copy; Rodrigo Costa  </p>
         </footer>
     </div>
 

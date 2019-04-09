@@ -8,6 +8,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace SistemaEstoque.Controllers
 {
+
+    [Authorize (Roles = "Admin")]
     public class RoleController : Controller
     {
 

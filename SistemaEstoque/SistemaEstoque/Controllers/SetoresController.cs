@@ -10,6 +10,7 @@ using SistemaEstoque.Models;
 
 namespace SistemaEstoque.Controllers
 {
+    [Authorize (Roles = "Admin")]
     public class SetoresController : Controller
     {
         private EstoqueDbContext db = new EstoqueDbContext();

@@ -58,9 +58,9 @@ namespace SistemaEstoque.Controllers
         //
         // GET: /Account/Login
         [AllowAnonymous]
-        public ActionResult Login(string returnUrl)
+        public ActionResult Login()
         {
-            ViewBag.ReturnUrl = returnUrl;
+            
             return View();
         }
 
@@ -82,7 +82,15 @@ namespace SistemaEstoque.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    if (User.IsInRole("Usuario"))
+                    {
+                        RedirectToAction("SolicitacoesSetor", "Solicitacoes");
+                    }else if (User.IsInRole("Admin"))
+                    {
+                        RedirectToAction("Index", "Home");
+                    }
                     return RedirectToAction("Index", "Solicitacoes");
+
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -139,7 +147,7 @@ namespace SistemaEstoque.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize (Roles = "Admin")]
         public ActionResult Register()
         {
 
@@ -153,7 +161,7 @@ namespace SistemaEstoque.Controllers
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -176,7 +184,7 @@ namespace SistemaEstoque.Controllers
                 if (result.Succeeded)
                 {
                     await this.UserManager.AddToRoleAsync(user.Id, model.Perfil  );
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
 
                     // Para obter mais informações sobre como habilitar a confirmação da conta e redefinição de senha, visite https://go.microsoft.com/fwlink/?LinkID=320771
                     // Enviar um email com este link
@@ -413,7 +421,7 @@ namespace SistemaEstoque.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //

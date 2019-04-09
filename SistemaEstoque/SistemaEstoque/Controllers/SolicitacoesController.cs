@@ -13,11 +13,13 @@ using Microsoft.AspNet.Identity;
 
 namespace SistemaEstoque.Controllers
 {
+    [Authorize]
     public class SolicitacoesController : Controller
     {
         private EstoqueDbContext db = new EstoqueDbContext();
 
         // GET: Solicitacoes
+        [Authorize(Roles = "AdminBens")]
         public async Task<ActionResult> Index()
         {
             var user = User.Identity.GetUserId();
@@ -27,7 +29,7 @@ namespace SistemaEstoque.Controllers
             return View(await db.Solicitacoes.ToListAsync());
         }
 
-        [Authorize(Roles ="Usuario , Admin")]
+        [Authorize(Roles ="Usuario , AdminBens")]
         public async Task<ActionResult> SolicitacoesSetor()
         {
 
@@ -37,6 +39,7 @@ namespace SistemaEstoque.Controllers
             return View(Solicitacoes);
         }
 
+        [Authorize(Roles = "Usuario , AdminBens")]
         public async Task<ActionResult> EquipamentosSetor()
         {
 
@@ -48,6 +51,7 @@ namespace SistemaEstoque.Controllers
         }
 
         // GET: Solicitacoes/Details/5
+        
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -62,6 +66,7 @@ namespace SistemaEstoque.Controllers
             return View(solicitacao);
         }
 
+        [Authorize(Roles = "AdminBens")]
         public ActionResult Aprovar(int? id)
         {
 
@@ -102,6 +107,7 @@ namespace SistemaEstoque.Controllers
 
         }
 
+        [Authorize(Roles = "AdminBens")]
         public ActionResult NegarSolicitacao(int? id)
         {
             var solicitacao = db.Solicitacoes.Find(id);
@@ -114,6 +120,7 @@ namespace SistemaEstoque.Controllers
 
 
         // GET: Solicitacoes/Create
+        [Authorize(Roles = "Usuario")]
         public ActionResult Create()
         {
             ViewData["Setor"] = new SelectList(db.Setores.ToList(), "SetorId", "Nome");
@@ -125,6 +132,7 @@ namespace SistemaEstoque.Controllers
         // obter mais detalhes, consulte https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Usuario")]
         public async Task<ActionResult> Create([Bind(Include = "SolicitacaoId,Equipamento,DataSolicitacao,Quantidade,Status")] SolicitacaoViewModel solicitacaoViewModel, int Setor)
         {
 
@@ -183,25 +191,7 @@ namespace SistemaEstoque.Controllers
 
             if (ModelState.IsValid)
             {
-                //pega o nome equipamento
-                var idEquipamento = db.Equipamentos.Where(a => a.NomeEquipamento.Equals(solicitacao.Equipamento)).FirstOrDefault();
-
-                //pega o id do equipamento
-                idEquipamento = db.Equipamentos.Find(idEquipamento.EquipamentoId);
-
-
-                Setor setor = db.Setores.Find(solicitacao.Setor.SetorId);
-                idEquipamento.Quantidade -= solicitacao.Quantidade;
-
                 
-               // setor.Equipamentos = setor;
-                //idEquipamento.Setor = setor;
-                solicitacao.Setor = setor;
-                //solicitacao = await db.Solicitacoes.FindAsync(solicitacao.Setor.SetorId);
-                //equipamento.Setor = solicitacao.Setor;
-                
-                db.Entry(idEquipamento).State = EntityState.Modified;
-                db.SaveChanges();
                 db.Entry(solicitacao).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -254,6 +244,7 @@ namespace SistemaEstoque.Controllers
         }
         */
         // GET: Solicitacoes/Delete/5
+        
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
