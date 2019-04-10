@@ -60,8 +60,15 @@ namespace SistemaEstoque.Controllers
         [AllowAnonymous]
         public ActionResult Login()
         {
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            else{
+                return View();
+            }
             
-            return View();
+            
         }
 
         //
@@ -82,11 +89,7 @@ namespace SistemaEstoque.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                   
-                    
-                    
                     return RedirectToAction("Index", "Home");
-
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

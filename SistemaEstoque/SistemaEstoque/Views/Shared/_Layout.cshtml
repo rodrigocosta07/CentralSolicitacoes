@@ -4,63 +4,66 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    <title>@ViewBag.Title -Central de Solicitações</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 </head>
-<body class="text-center">
+<body >
     @if (Request.IsAuthenticated)
     {
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Central Solicitações", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    @if (Request.IsAuthenticated)
-                    {
-                        if (User.IsInRole("AdminBens"))
-                        {
-                            <li>@Html.ActionLink("Solicitacoes", "Index", "Solicitacoes")</li>
-                            <li>@Html.ActionLink("Equipamentos", "Index", "Equipamentos")</li>
-                        }
-                    }
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+        
+            <button type="button" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
 
-                    @if (Request.IsAuthenticated)
-                    {
-                        if (User.IsInRole("Usuario"))
-                        {
-                            <li>@Html.ActionLink("Solicitacoes do setor", "SolicitacoesSetor", "Solicitacoes")</li>
-                            <li>@Html.ActionLink("Equipamentos do Setor", "EquipamentosSetor", "Solicitacoes")</li>
-                        }
-                    }
+            </button>
 
-                    @if (Request.IsAuthenticated)
+            @Html.ActionLink("Central Solicitações", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+        
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("AdminBens"))
                     {
-                        if (User.IsInRole("Admin"))
-                        {
-                            <li>@Html.ActionLink("Criar Perfil", "Index", "Role")</li>
-                            <li>@Html.ActionLink("Criar Usuario", "Register", "Account")</li>
-                        }
+                        <li class="nav-item">
+                            @Html.ActionLink("Solicitacoes", "Index", "Solicitacoes", new { }, new { @class = "nav-item nav-link" })
+                        </li>
+                        <li class="nav-item">@Html.ActionLink("Equipamentos", "Index", "Equipamentos", new { }, new { @class = "nav-item nav-link" })</li>
                     }
+                }
 
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("Usuario"))
+                    {
+                        <li class="nav-item">@Html.ActionLink("Solicitacoes do setor", "SolicitacoesSetor", "Solicitacoes", new { }, new { @class = "nav-item nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Equipamentos do Setor", "EquipamentosSetor", "Solicitacoes", new { }, new { @class = "nav-item nav-link" })</li>
+                    }
+                }
+
+                @if (Request.IsAuthenticated)
+                {
+                    if (User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item">@Html.ActionLink("Criar Perfil", "Create", "Role", new { }, new { @class = "nav-item nav-link" })</li>
+                        <li class="nav-item">@Html.ActionLink("Criar Usuario", "Register", "Account", new { }, new { @class = "nav-item nav-link" })</li>
+                    }
+                }
+
+            </ul>
+
+            @Html.Partial("_LoginPartial")
+
         </div>
-    </div>
+    </nav>
+    
     }
     <div class="container body-content">
         @RenderBody()
         <hr />
-        <footer>
+        <footer class="text-center">
             <p>Central de Solicitações - @DateTime.Now.Year &copy; Rodrigo Costa  </p>
         </footer>
     </div>

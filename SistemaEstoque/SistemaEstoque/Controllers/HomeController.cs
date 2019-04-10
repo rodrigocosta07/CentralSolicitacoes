@@ -6,25 +6,23 @@ using System.Web.Mvc;
 
 namespace SistemaEstoque.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole("Usuario"))
+            {
+               return RedirectToAction("SolicitacoesSetor", "Solicitacoes");
+            }else if (User.IsInRole("AdminBens"))
+            {
+                return RedirectToAction("Index", "Solicitacoes");
+            }else {
+                return RedirectToAction("Index" , "Role");
+            }
+            
         }
 
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+       
     }
 }
