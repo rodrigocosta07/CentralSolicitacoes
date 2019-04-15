@@ -1,51 +1,50 @@
 ﻿@model IEnumerable<SistemaEstoque.Models.Solicitacao>
 
 @{
-    ViewBag.Title = "SolicitacoesSetor";
+    ViewBag.Title = "Solicitaçãoes do Setor";
 }
 
-<h2>SolicitacoesSetor</h2>
+<h2 class="text-center">Solicitações do Setor</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Equipamento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DataSolicitacao)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantidade)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Status)
-        </th>
-        <th></th>
-    </tr>
+@Html.ActionLink("Fazer nova solicitação", "Create" , new { } , new { @class = "btn btn-outline-secondary" })
+    
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Equipamento)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.DataSolicitacao)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Quantidade)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Status)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Equipamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DataSolicitacao)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                </tr>
+            }
+            </tbody>
+    </table>
+</div>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Equipamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DataSolicitacao)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantidade)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Status)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.SolicitacaoId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.SolicitacaoId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.SolicitacaoId })
-        </td>
-    </tr>
-}
-
-</table>

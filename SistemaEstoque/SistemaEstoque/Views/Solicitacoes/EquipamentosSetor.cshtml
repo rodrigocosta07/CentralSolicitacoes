@@ -4,36 +4,39 @@
     ViewBag.Title = "EquipamentosSetor";
 }
 
-<h2>Equipamentos do Setor</h2>
+<h2 class="text-center">Equipamentos do Setor</h2>
 
+<div class="table-responsive">
+    <table class="table table-hover table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.NomeEquipamento)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.NomeSetor)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Quantidade)
+                </th>
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.NomeEquipamento)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.NomeSetor)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Quantidade)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeEquipamento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.NomeSetor)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantidade)
-        </td>
-        
-    </tr>
-}
-
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeEquipamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NomeSetor)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Quantidade)
+                    </td>
+                </tr>
+            }
+            </tbody>
+    </table>
+    </div>

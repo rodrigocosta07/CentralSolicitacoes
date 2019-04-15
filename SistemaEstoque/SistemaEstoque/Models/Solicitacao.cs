@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -17,6 +18,9 @@ namespace SistemaEstoque.Models
 
         public int SolicitacaoId { get; set; }
         public string Equipamento { get; set; }
+
+        [Display(Name = "Data da solicitação")]
+        [DataType(DataType.Date)]
         public DateTime DataSolicitacao { get; set; }
         public double Quantidade { get; set; }
 
