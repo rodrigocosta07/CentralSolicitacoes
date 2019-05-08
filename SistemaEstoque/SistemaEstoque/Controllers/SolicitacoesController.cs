@@ -158,7 +158,7 @@ namespace SistemaEstoque.Controllers
             return View(solicitacao);
         }
 
-
+        //consulta dos equipamentos cadastrados no banco de dados para retornar no campo de busca de equipamento
         public ActionResult GetSearchValue(string term)
         {
             return Json(db.Equipamentos.Where(c => c.NomeEquipamento.StartsWith(term)).Select(a => new { label = a.NomeEquipamento }), JsonRequestBehavior.AllowGet);

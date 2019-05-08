@@ -173,7 +173,6 @@
     <Compile Include="Controllers\EquipamentosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
-    <Compile Include="Controllers\MovimentacoesConcluidasController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SetoresController.cs" />
     <Compile Include="Controllers\SolicitacoesController.cs" />
@@ -304,8 +303,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
     <Content Include="Views\Account\ConfirmEmail.cshtml" />
@@ -327,25 +324,6 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Produtoes\Create.cshtml" />
-    <Content Include="Views\Produtoes\Delete.cshtml" />
-    <Content Include="Views\Produtoes\Details.cshtml" />
-    <Content Include="Views\Produtoes\Edit.cshtml" />
-    <Content Include="Views\Produtoes\Index.cshtml" />
-    <Content Include="Views\Relatorios1\Create.cshtml" />
-    <Content Include="Views\Relatorios1\Delete.cshtml" />
-    <Content Include="Views\Relatorios1\Details.cshtml" />
-    <Content Include="Views\Relatorios1\Edit.cshtml" />
-    <Content Include="Views\Relatorios1\Index.cshtml" />
-    <Content Include="Views\Relatorios1\Pedido.cshtml" />
-    <Content Include="Views\Relatorios1\Caixa.cshtml" />
-    <Content Include="Views\Relatorios1\_ProdutosSelecionados.cshtml" />
-    <Content Include="Views\Relatorios1\ListarItens.cshtml" />
-    <Content Include="Views\Movimentacao\Create.cshtml" />
-    <Content Include="Views\Movimentacao\Delete.cshtml" />
-    <Content Include="Views\Movimentacao\Details.cshtml" />
-    <Content Include="Views\Movimentacao\Edit.cshtml" />
-    <Content Include="Views\Movimentacao\Index.cshtml" />
     <Content Include="Views\TipoEquipamentos\Create.cshtml" />
     <Content Include="Views\TipoEquipamentos\Delete.cshtml" />
     <Content Include="Views\TipoEquipamentos\Details.cshtml" />
@@ -366,12 +344,6 @@
     <Content Include="Views\Solicitacoes\Details.cshtml" />
     <Content Include="Views\Solicitacoes\Edit.cshtml" />
     <Content Include="Views\Solicitacoes\Index.cshtml" />
-    <Content Include="Views\MovimentacoesConcluidas\Create.cshtml" />
-    <Content Include="Views\MovimentacoesConcluidas\Delete.cshtml" />
-    <Content Include="Views\MovimentacoesConcluidas\Details.cshtml" />
-    <Content Include="Views\MovimentacoesConcluidas\Edit.cshtml" />
-    <Content Include="Views\MovimentacoesConcluidas\Index.cshtml" />
-    <Content Include="Views\MovimentacoesConcluidas\Salvar.cshtml" />
     <Content Include="Views\Role\Index.cshtml" />
     <Content Include="Views\Role\Create.cshtml" />
     <Content Include="Views\Solicitacoes\SolicitacoesSetor.cshtml" />
@@ -446,11 +418,11 @@
   </Target>
   <Target Name="AfterBuild">
   </Target> -->
-<Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
     <ItemGroup>
       <RoslynFiles Include="$(CscToolPath)\*" />
     </ItemGroup>
     <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
     <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
-</Target>
+  </Target>
 </Project>
